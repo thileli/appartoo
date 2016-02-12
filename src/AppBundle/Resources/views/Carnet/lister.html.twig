@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+{% endblock stylesheets %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Mes contactes</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered" id="myTable">
+                        <thead>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Site Web</th>
+                        <th>Option</th>
+                        </thead>
+                        <tbody>
+                        {% for carnet in carnets %}
+                            <td>{{ carnet.username }}</td>
+                            <td>{{ carnet.email }}</td>
+                            <td>{{ carnet.siteWeb }}</td>
+                            <td>
+                                <a href="" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>
+                                    Supprimer.</a>
+                            </td>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(function()
+        {
+            $('#myTable').DataTable();
+        });
+    </script>
+{% endblock javascripts %}

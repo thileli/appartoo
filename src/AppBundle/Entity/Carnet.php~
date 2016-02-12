@@ -1,0 +1,30 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Lily
+ * Date: 12/02/2016
+ * Time: 15:50
+ */
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="carnet")
+ */
+class Carnet
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="carnet")
+     */
+    private $users;
+
+}
