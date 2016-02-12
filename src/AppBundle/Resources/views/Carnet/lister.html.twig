@@ -19,12 +19,12 @@
                         </thead>
                         <tbody>
                         {% for carnet in carnets %}
-                            <td>{{ carnet.username }}</td>
-                            <td>{{ carnet.email }}</td>
-                            <td>{{ carnet.siteWeb }}</td>
+                            <td>{{ carnet.member.username }}</td>
+                            <td>{{ carnet.member.email }}</td>
+                            <td>{{ carnet.member.siteWeb }}</td>
                             <td>
-                                <a href="" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>
-                                    Supprimer.</a>
+                        <a href="{{ path('carnet_supprimer', { user : carnet.member.id }) }}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>
+                                    Supprimer</a>
                             </td>
                         {% endfor %}
                         </tbody>
@@ -40,7 +40,11 @@
     <script>
         $(function()
         {
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                "language": {
+                    "url": " //cdn.datatables.net/plug-ins/1.10.11/i18n/French.json"
+                }
+            });
         });
     </script>
 {% endblock javascripts %}

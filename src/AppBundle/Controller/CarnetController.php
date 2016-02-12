@@ -28,23 +28,26 @@ class CarnetController extends Controller
     }
 
     /**
-     * @Route("/supprimer", name="carnet_supprimer")
+     * @Route("/{user}/supprimer", name="carnet_supprimer")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function supprimerAction(User $user)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var User $user */
+        /** @var User $currentUser */
         $currentUser = $this->getUser();
 
-        $currentUser->getCarnet()
-            ->removeUser($user);
-        $em->persist($user);
-        $em->persist($currentUser);
+        $carnet = $this->getDoctrine()
+            ->getRepository('AppBundle:Carnet')
+            ->findOneBy(array(
+                    'member' => $user,
+                    'author' => $currentUser
+                )
+            );
+        $em->remove($carnet);
         $em->flush();
-
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('carnet_lister');
     }
 
     /**
@@ -54,7 +57,7 @@ class CarnetController extends Controller
      */
     public function listerAction()
     {
-        $carnets = $this->getUser()->getCarnet();
+        $carnets = $this->getUser()->getCarnets();
 
         return $this->render('AppBundle:Carnet:lister.html.twig', array(
             'carnets' => $carnets

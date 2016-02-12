@@ -30,13 +30,18 @@ class User extends BaseUser
     private $siteWeb;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Carnet", inversedBy="users")
+     * @ORM\OneToMany(targetEntity="Carnet", mappedBy="author")
      */
-    private $carnet;
+    private $carnets;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         parent::__construct();
+        $this->telephone = "09090838302";
+        $this->setSiteWeb("example.com");
         // your own logic
     }
 
@@ -88,27 +93,38 @@ class User extends BaseUser
         return $this->siteWeb;
     }
 
+
     /**
-     * Set carnet
+     * Add carnet
      *
      * @param \AppBundle\Entity\Carnet $carnet
      *
      * @return User
      */
-    public function setCarnet(\AppBundle\Entity\Carnet $carnet = null)
+    public function addCarnet(\AppBundle\Entity\Carnet $carnet)
     {
-        $this->carnet = $carnet;
+        $this->carnets[] = $carnet;
 
         return $this;
     }
 
     /**
-     * Get carnet
+     * Remove carnet
      *
-     * @return \AppBundle\Entity\Carnet
+     * @param \AppBundle\Entity\Carnet $carnet
      */
-    public function getCarnet()
+    public function removeCarnet(\AppBundle\Entity\Carnet $carnet)
     {
-        return $this->carnet;
+        $this->carnets->removeElement($carnet);
+    }
+
+    /**
+     * Get carnets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarnets()
+    {
+        return $this->carnets;
     }
 }

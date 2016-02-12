@@ -16,71 +16,61 @@ use Doctrine\ORM\Mapping as ORM;
 class Carnet
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Carnet", inversedBy="carnet")
+     * @ORM\Id()
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="carnets")
      */
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="carnet")
+     * @ORM\ManyToOne(targetEntity="User")
      */
-    private $users;
+    private $member;
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
+     * Set author
      *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Add user
-     *
-     * @param \AppBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $author
      *
      * @return Carnet
      */
-    public function addUser(\AppBundle\Entity\User $user)
+    public function setAuthor(\AppBundle\Entity\User $author = null)
     {
-        $this->users[] = $user;
+        $this->author = $author;
 
         return $this;
     }
 
     /**
-     * Remove user
+     * Get author
      *
-     * @param \AppBundle\Entity\User $user
+     * @return \AppBundle\Entity\User
      */
-    public function removeUser(\AppBundle\Entity\User $user)
+    public function getAuthor()
     {
-        $this->users->removeElement($user);
+        return $this->author;
     }
 
     /**
-     * Get users
+     * Set member
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \AppBundle\Entity\User $member
+     *
+     * @return Carnet
      */
-    public function getUsers()
+    public function setMember(\AppBundle\Entity\User $member = null)
     {
-        return $this->users;
+        $this->member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get member
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getMember()
+    {
+        return $this->member;
     }
 }
