@@ -15,20 +15,48 @@
                         <th>Nom</th>
                         <th>Email</th>
                         <th>Site Web</th>
+                        <th>Téléphone</th>
                         <th>Option</th>
                         </thead>
                         <tbody>
                         {% for carnet in carnets %}
-                            <td>{{ carnet.member.username }}</td>
-                            <td>{{ carnet.member.email }}</td>
-                            <td>{{ carnet.member.siteWeb }}</td>
-                            <td>
-                        <a href="{{ path('carnet_supprimer', { user : carnet.member.id }) }}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>
-                                    Supprimer</a>
-                            </td>
+                           <tr>
+                               <td>{{ carnet.member.username }}</td>
+                               <td>{{ carnet.member.email }}</td>
+                               <td>{{ carnet.member.siteWeb }}</td>
+                               <td>{{ carnet.member.telephone }}</td>
+                               <td>
+                                   <a href="{{ path('carnet_supprimer', { user : carnet.member.id }) }}"
+                                      class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>
+                                       Supprimer</a>
+                               </td>
+                           </tr>
                         {% endfor %}
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Ajouter membres</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                            {{ form_start(form, {attr : { class : 'form-inline'}}) }}
+                                <div class="form-group">
+                                    <label for="">Selectionner un membre : </label>
+                                    {{ form_widget(form.member, {attr : {class : 'form-control'}}) }}
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-success"><i class="glyphicon glyphicon-plus"></i>Ajouter</button>
+                                </div>
+                            {{ form_end(form) }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,8 +66,7 @@
 {% block javascripts %}
     <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script>
-        $(function()
-        {
+        $(function () {
             $('#myTable').DataTable({
                 "language": {
                     "url": " //cdn.datatables.net/plug-ins/1.10.11/i18n/French.json"

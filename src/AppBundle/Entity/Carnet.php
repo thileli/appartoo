@@ -22,6 +22,7 @@ class Carnet
     private $author;
 
     /**
+     * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="User")
      */
     private $member;
